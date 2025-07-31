@@ -116,9 +116,12 @@ export default function Services() {
         <div className="flex flex-wrap justify-center gap-6 max-w-7xl mx-auto">
           {services.map((item, index) => {
             const Icon = item.icon;
-            const isMiddleCard = index % 3 === 1;
+            const isLeft = index % 3 === 0;
+            const isMiddle = index % 3 === 1;
+            const isRight = index % 3 === 2;
 
             return (
+
               <motion.div
                 key={index}
                 initial="hidden"
@@ -126,18 +129,21 @@ export default function Services() {
                 variants={{
                   hidden: {
                     opacity: 0,
-                    y: isMiddleCard ? 50 : -50,
+                    x: isLeft ? -50 : isRight ? 50 : 0,
+                    y: isMiddle ? 50 : 0,
                     filter: "blur(8px)",
                   },
                   visible: {
                     opacity: 1,
+                    x: 0,
                     y: 0,
                     filter: "blur(0px)",
                   },
                 }}
-                transition={{ duration: 0.7, ease: "linear", delay: index * 0.1 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
                 className="bg-white border-1 border-[var(--oceanBlue)] rounded-2xl shadow-lg p-6 flex flex-col gap-4 transition hover:shadow-2xl max-w-[350px] w-full sm:w-[48%] lg:w-[30%]"
               >
+
                 <div className="flex flex-col items-center gap-3">
                   <div className="bg-[var(--oceanBlue)/10] p-2 rounded-full">
                     <Icon size={128} className="text-[var(--oceanBlue)]" />

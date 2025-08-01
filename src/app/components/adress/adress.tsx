@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { FaMapPin } from "react-icons/fa6";
 import WhatsappButton from "../whatsappButton/whatsappButton";
 import { motion, easeOut, useAnimation } from "framer-motion";
-import { Mail, Smartphone } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 
 const containerVariants = {

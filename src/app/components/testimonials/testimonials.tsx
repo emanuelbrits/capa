@@ -35,9 +35,9 @@ export default function Testimonials() {
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
-                className="text-3xl md:text-5xl font-normal font-playfair text-[var(--blackPanther)] mb-10"
+                className="text-2xl sm:text-3xl md:text-5xl font-normal font-playfair text-[var(--blackPanther)] mb-6 md:mb-10"
             >
-                <div className="flex md:gap-8">
+                <div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8">
                     <div className="flex flex-col gap-4">
                         <div>
                             <span className="font-bold text-[var(--oceanBlue)]">Escritório</span> bem avaliado
@@ -47,7 +47,7 @@ export default function Testimonials() {
                         </div>
                     </div>
                     <div className="shiny-icon">
-                        <Scale className="w-[7rem] h-[7rem] text-[var(--blackPanther)]" />
+                        <Scale className="w-20 h-20 sm:w-24 sm:h-24 md:w-[7rem] md:h-[7rem] text-[var(--blackPanther)]" />
                     </div>
                 </div>
             </motion.h2>

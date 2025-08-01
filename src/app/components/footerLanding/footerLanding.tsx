@@ -1,14 +1,13 @@
 "use client";
 
 import { MapPin, Phone, Clock, Mail } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 const links = [
   { label: "Início", href: "/" },
   { label: "Sobre", href: "#sobre" },
   { label: "Serviços", href: "#servicos" },
-  { label: "Testemunhos", href: "#testemunhos" },
+  { label: "Avaliações", href: "#avaliacoes" },
   { label: "FAQ", href: "#faq" },
   { label: "Endereço", href: "#endereco" },
 ];

@@ -21,7 +21,7 @@ export default function Home() {
           <section id="servicos">
             <Services />
           </section>
-          <section id="testemunhos">
+          <section id="avaliacoes">
             <Testimonials />
           </section>
           <section id="faq">

@@ -91,9 +91,9 @@ export default function FAQ() {
           visible: { x: 0, opacity: 1 },
         }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="text-3xl md:text-5xl font-extrabold text-center pt-16 px-6 md:px-20 font-playfair text-[var(--blackPanther)]"
+        className="text-3xl md:text-5xl font-extrabold text-center pt-16 px-6 md:px-20 font-playfair text-[var(--oceanBlue)]"
       >
-        Dúvidas Frequentes <br /> <span className="text-4xl md:text-6xl"><span className="font-extralight">Respostas dos Nossos</span> Especialistas</span>
+        Dúvidas Frequentes <br /> <span className="text-4xl md:text-6xl"><span className="font-extralight text-[var(--blackPanther)]">Respostas dos Nossos</span> Especialistas</span>
       </motion.h2>
 
       <div className="px-4 py-16 md:py-20">
@@ -121,13 +121,13 @@ export default function FAQ() {
                   },
                 }}
                 className={`
-            group 
-            border-l-8 
-            transition-all 
-            duration-300
-            bg-white
-            ${isOpen ? 'border-l-[var(--oceanBlue)]' : 'border-gray-300 hover:bg-[var(--oceanBlue)]/15'} 
-          `}
+                  group 
+                  border-l-8 
+                  transition-all 
+                  duration-300
+                  bg-white
+                  ${isOpen ? 'border-l-[var(--oceanBlue)]' : 'border-gray-300 hover:bg-[var(--oceanBlue)]/15'} 
+                `}
               >
                 <button
                   onClick={() => toggleIndex(index)}

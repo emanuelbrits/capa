@@ -2,75 +2,14 @@
 
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Star } from "lucide-react";
+import { Scale } from "lucide-react";
 import { useEffect } from "react";
-import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa6";
-
-const testimonials = [
-    {
-        name: "Ana Silva",
-        rating: 5,
-        text: "Excelente atendimento! Resolvi meu processo previdenciário com muita clareza e profissionalismo.",
-    },
-    {
-        name: "João Pereira",
-        rating: 5,
-        text: "Equipe muito competente e dedicada. Sempre me manteve informado sobre o andamento do meu caso.",
-    },
-    {
-        name: "Maria Oliveira",
-        rating: 5,
-        text: "Recomendo de olhos fechados! Profissionais atenciosos e eficazes.",
-    },
-    {
-        name: "Carlos Eduardo",
-        rating: 5,
-        text: "Muito satisfeito com o serviço. Responderam minhas dúvidas rapidamente e conseguiram um ótimo resultado.",
-    },
-];
-
-function StarRating({ rating }: { rating: number }) {
-    return (
-        <div className="flex justify-center space-x-1 text-[#FFD700]">
-            {[...Array(5)].map((_, i) => (
-                <Star
-                    key={i}
-                    size={20}
-                    fill={i < rating ? "currentColor" : "none"}
-                    stroke="currentColor"
-                />
-            ))}
-        </div>
-    );
-}
-
-const containerVariants = {
-    hidden: {},
-    visible: {
-        transition: {
-            staggerChildren: 0.2,
-        },
-    },
-};
-
-const cardVariants = {
-    hidden: {
-        opacity: 0,
-        y: 50,
-        filter: "blur(8px)",
-    },
-    visible: {
-        opacity: 1,
-        y: 0,
-        filter: "blur(0px)",
-    },
-};
 
 export default function Testimonials() {
-    const [ref, inView] = useInView({
+    const inView = useInView({
         threshold: 0.3,
         triggerOnce: false,
-        rootMargin: "900px 0px 100px 0px",
+        rootMargin: "500px 0px 100px 0px",
     });
 
     const controls = useAnimation();
@@ -83,55 +22,45 @@ export default function Testimonials() {
         }
     }, [inView, controls]);
 
+    useEffect(() => {
+        const script = document.createElement("script");
+        script.src = "https://apps.elfsight.com/p/platform.js";
+        script.defer = true;
+        document.body.appendChild(script);
+    }, []);
+
     return (
-        <div className="bg-white">
+        <div className="bg-white py-16 px-6 md:px-20">
             <motion.h2
-                ref={ref}
-                initial="hidden"
-                animate={controls}
-                variants={{
-                    hidden: {
-                        opacity: 0,
-                        x: -50,
-                    },
-                    visible: {
-                        opacity: 1,
-                        x: 0,
-                    },
-                }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="text-3xl md:text-5xl font-extrabold pt-16 px-6 md:px-20 font-playfair text-[var(--oceanBlue)]"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
+                className="text-3xl md:text-5xl font-normal font-playfair text-[var(--blackPanther)] mb-10"
             >
-                O que nossos clientes dizem
+                <div className="flex md:gap-8">
+                    <div className="flex flex-col gap-4">
+                        <div>
+                            <span className="font-bold text-[var(--oceanBlue)]">Escritório</span> bem avaliado
+                        </div>
+                        <div>
+                            Referência em <span className="font-bold text-[var(--oceanBlue)]">Direito</span>
+                        </div>
+                    </div>
+                    <div className="shiny-icon">
+                        <Scale className="w-[7rem] h-[7rem] text-[var(--blackPanther)]" />
+                    </div>
+                </div>
             </motion.h2>
 
             <motion.div
-                className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-7xl mx-auto py-16 px-6 md:px-20"
-                initial="hidden"
-                animate={controls}
-                variants={containerVariants}
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
             >
-                {testimonials.map((item, index) => (
-                    <motion.div
-                        key={index}
-                        variants={cardVariants}
-                        transition={{ duration: 0.5 }}
-                        className="bg-[var(--tundraFrost)] border-1 border-[var(--oceanBlue)] rounded-xl shadow-lg p-6 flex flex-col justify-between text-[var(--blackPanther)] min-h-[300px]"
-                    >
-                        <div className="flex flex-col items-center gap-4">
-                            <StarRating rating={item.rating} />
-                            <div className="w-full flex justify-start text-xl">
-                                <FaQuoteLeft />
-                            </div>
-                            <p className="text-center text-base md:text-lg italic mt-2">{item.text}</p>
-                            <div className="w-full flex justify-end text-xl">
-                                <FaQuoteRight />
-                            </div>
-                        </div>
-
-                        <p className="font-semibold mt-6 text-center">{item.name}</p>
-                    </motion.div>
-                ))}
+                <div
+                    className="elfsight-app-576a9a9a-d193-45ea-996c-a57f06d14d5d"
+                    data-elfsight-app-lazy
+                ></div>
             </motion.div>
         </div>
     );

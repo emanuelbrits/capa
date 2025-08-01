@@ -35,7 +35,7 @@ export default function About() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="text-3xl md:text-5xl font-extrabold font-playfair text-[var(--oceanBlue)] leading-snug mb-12"
       >
-        Sobre
+        Quem é o Dr. Carlos Alberto?
       </motion.h2>
 
       <motion.div
@@ -119,7 +119,7 @@ export default function About() {
             </div>
 
             {/* Selos */}
-            <div className="flex flex-wrap gap-4 mt-6">
+            <div className="flex flex-wrap gap-4 mt-6 shiny-icon">
               <Image
                 src="/Selo-OAB.webp"
                 alt="Selo OAB"
@@ -165,7 +165,7 @@ export default function About() {
                     },
                   }}
                   transition={{ duration: 0.7, delay: index * 0.2 }}
-                  className="group flex flex-col h-44 w-full sm:w-40 gap-3 border-t-4 border-[var(--oceanBlue)] justify-center text-center bg-white hover:bg-[var(--oceanBlue)] text-[var(--oceanBlue)] hover:text-white transition-colors duration-300 rounded shadow-md"
+                  className="group flex flex-col h-44 w-full sm:w-40 gap-3 border-t-4 border-[var(--oceanBlue)] justify-center text-center shiny-icon bg-white hover:bg-[var(--oceanBlue)] text-[var(--oceanBlue)] hover:text-white transition-colors duration-300 rounded shadow-md"
                 >
                   <div>
                     <p className="text-4xl">{item.value}</p>

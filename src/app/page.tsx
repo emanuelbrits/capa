@@ -6,7 +6,7 @@ import Testimonials from "./components/testimonials/testimonials";
 import About from "./components/about/about";
 import CookieConsent from "./components/cookieConsent/cookieConsent";
 import NavbarLanding from "./components/navbarLanding/navbarLanding";
-import Contact from "./components/contact/contact";
+import Adress from "./components/adress/adress";
 
 export default function Home() {
   return (
@@ -27,8 +27,8 @@ export default function Home() {
           <section id="faq">
             <FAQ />
           </section>
-          <section id="contato">
-            <Contact />
+          <section id="endereco">
+            <Adress></Adress>
           </section>
           <FooterLanding />
         </div>

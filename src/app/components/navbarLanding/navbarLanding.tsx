@@ -12,7 +12,7 @@ const links = [
     { label: "Serviços", href: "#servicos" },
     { label: "Testemunhos", href: "#testemunhos" },
     { label: "FAQ", href: "#faq" },
-    { label: "Contato", href: "#contato" },
+    { label: "Endereço", href: "#endereco" },
 ];
 
 export default function NavbarLanding() {

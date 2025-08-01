@@ -91,13 +91,13 @@ export default function FAQ() {
           visible: { x: 0, opacity: 1 },
         }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="text-3xl md:text-5xl font-extrabold pt-16 px-6 md:px-20 font-playfair text-[var(--blackPanther)]"
+        className="text-3xl md:text-5xl font-extrabold text-center pt-16 px-6 md:px-20 font-playfair text-[var(--blackPanther)]"
       >
-        Perguntas Frequentes (FAQ)
+        Dúvidas Frequentes <br /> <span className="text-4xl md:text-6xl"><span className="font-extralight">Respostas dos Nossos</span> Especialistas</span>
       </motion.h2>
 
       <div className="px-4 py-16 md:py-20">
-        <div className="max-w-4xl mx-auto space-y-6">
+        <div className="max-w-4xl mx-auto divide-y divide-gray-200">
           {faqItems.map((item, index) => {
             const isOpen = openIndex === index;
             const [measureRef, { height }] = useMeasure();
@@ -108,28 +108,41 @@ export default function FAQ() {
                 initial="hidden"
                 animate={controls}
                 variants={{
-                  hidden: { opacity: 0, y: 50 },
+                  hidden: {
+                    opacity: 0,
+                    y: 50,
+                    filter: "blur(8px)",
+                  },
                   visible: {
                     opacity: 1,
                     y: 0,
+                    filter: "blur(0px)",
                     transition: { delay: index * 0.1, duration: 0.5 },
                   },
                 }}
-                className="border-1 border-[var(--oceanBlue)] rounded-lg bg-white shadow-sm overflow-hidden"
+                className={`
+            group 
+            border-l-8 
+            transition-all 
+            duration-300
+            bg-white
+            ${isOpen ? 'border-l-[var(--oceanBlue)]' : 'border-gray-300 hover:bg-[var(--oceanBlue)]/15'} 
+          `}
               >
                 <button
                   onClick={() => toggleIndex(index)}
-                  className="w-full text-left px-6 py-8 flex items-center justify-between hover:bg-[var(--oceanBlue)/10] transition-colors cursor-pointer"
+                  className="w-full text-left px-6 py-6 flex items-center justify-between cursor-pointer"
                 >
-                  <span className="text-xl md:text-2xl font-medium text-[var(--oceanBlue)]">
+                  <span className="text-2xl md:text-3xl font-bold text-[var(--blackPanther)]">
                     {item.label}
                   </span>
+
                   <motion.div
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
-                    className="text-[var(--oceanBlue)]"
+                    className="bg-transparent border border-[var(--oceanBlue)] rounded-full p-1"
                   >
-                    <ChevronDown size={24} />
+                    <ChevronDown size={32} className="text-black" />
                   </motion.div>
                 </button>
 
@@ -142,7 +155,10 @@ export default function FAQ() {
                       transition={{ duration: 0.35, ease: "easeInOut" }}
                       className="px-6 overflow-hidden"
                     >
-                      <div ref={measureRef} className="py-4 text-lg md:text-xl text-gray-900">
+                      <div
+                        ref={measureRef}
+                        className="py-4 text-lg md:text-xl text-[var(--blackPanther)]"
+                      >
                         {item.value}
                       </div>
                     </motion.div>

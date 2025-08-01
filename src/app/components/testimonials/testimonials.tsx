@@ -54,13 +54,21 @@ const containerVariants = {
 };
 
 const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0 },
+    hidden: {
+        opacity: 0,
+        y: 50,
+        filter: "blur(8px)",
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+    },
 };
 
 export default function Testimonials() {
     const [ref, inView] = useInView({
-        threshold: 0.3, 
+        threshold: 0.3,
         triggerOnce: false,
         rootMargin: "900px 0px 100px 0px",
     });
@@ -82,8 +90,14 @@ export default function Testimonials() {
                 initial="hidden"
                 animate={controls}
                 variants={{
-                    hidden: { opacity: 0, x: -50 },
-                    visible: { opacity: 1, x: 0 },
+                    hidden: {
+                        opacity: 0,
+                        x: -50,
+                    },
+                    visible: {
+                        opacity: 1,
+                        x: 0,
+                    },
                 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 className="text-3xl md:text-5xl font-extrabold pt-16 px-6 md:px-20 font-playfair text-[var(--oceanBlue)]"

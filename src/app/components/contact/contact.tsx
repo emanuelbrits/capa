@@ -13,8 +13,17 @@ const containerVariants = {
 };
 
 const infoVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: easeOut } },
+  hidden: {
+    opacity: 0,
+    y: 20,
+    filter: "blur(8px)",
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.9, ease: easeOut }
+  },
 };
 
 const mapVariants = {

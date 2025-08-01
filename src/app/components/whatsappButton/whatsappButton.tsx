@@ -37,7 +37,7 @@ export default function WhatsappButton() {
       ref={ref}
       onClick={handleClick}
       className={`flex items-center justify-center gap-2 shadow-xl hover:shadow-4xl bg-green-500 hover:bg-green-600 text-white text-base sm:text-lg md:text-xl xl:text-3xl font-semibold px-6 py-3 rounded-xl transition-all duration-700 ease-out hover:scale-105 active:scale-95 cursor-pointer
-        ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+        ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 blur-sm "}`}
     >
       <FaWhatsapp className="text-2xl" />
       Quero falar com um advogado!

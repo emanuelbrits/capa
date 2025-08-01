@@ -148,11 +148,11 @@ export default function Services() {
                   <div className="bg-[var(--oceanBlue)/10] p-2 rounded-full">
                     <Icon size={128} className="text-[var(--oceanBlue)]" />
                   </div>
-                  <h3 className="text-xl font-semibold text-[var(--oceanBlue)] text-center">
+                  <h3 className="text-xl font-extrabold text-[var(--blackPanther)] text-center">
                     {item.title}
                   </h3>
                 </div>
-                <p className="text-gray-700 text-base text-center">
+                <p className="text-[var(--blackPanther)] text-base font-light text-center">
                   {item.description}
                 </p>
               </motion.div>

@@ -13,7 +13,7 @@ import {
   Hourglass,
 } from "lucide-react";
 import Image from "next/image";
-import { motion, useAnimation, Easing } from "framer-motion";
+import { motion, useAnimation, Easing, AnimatePresence, easeInOut } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import WhatsappButton from "../whatsappButton/whatsappButton";
@@ -25,37 +25,37 @@ const services = [
   {
     title: "Revisão de Contrato de Trabalho",
     resolved: 184,
-    image: "/advogado.webp",
+    image: "/legal-contract-meeting.jpg",
     icon: FileText,
   },
   {
     title: "Rescisão e Verbas Trabalhistas",
     resolved: 221,
-    image: "/advogado.webp",
+    image: "/employee-termination.avif",
     icon: Gavel,
   },
   {
     title: "Ações de Indenização por Danos Morais",
     resolved: 143,
-    image: "/advogado.webp",
+    image: "/harassment.jpg",
     icon: ShieldCheck,
   },
   {
     title: "Reconhecimento de Vínculo Empregatício",
     resolved: 97,
-    image: "/advogado.webp",
+    image: "/legal-employment-documents.jpg",
     icon: UserCheck,
   },
   {
     title: "Cálculo de Horas Extras e Adicionais",
     resolved: 168,
-    image: "/advogado.webp",
+    image: "/overtime-calculation.jpg",
     icon: Hourglass,
   },
   {
     title: "Acompanhamento de Processos Trabalhistas",
     resolved: 204,
-    image: "/advogado.webp",
+    image: "/legal-process-monitoring.jpg",
     icon: Bell,
   },
 ];
@@ -76,7 +76,13 @@ const imageVariants = {
     opacity: 1,
     x: 0,
     filter: "blur(0px)",
-    transition: { duration: 0.9, ease, delay: 0.3 },
+    transition: { duration: 0.6, ease: easeInOut },
+  },
+  exit: {
+    opacity: 0,
+    x: -50,
+    filter: "blur(4px)",
+    transition: { duration: 0.4, ease: easeInOut },
   },
 };
 
@@ -103,6 +109,7 @@ export default function Services() {
   });
 
   const [activeIndex, setActiveIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(activeIndex);
 
   useEffect(() => {
     if (inView) {
@@ -111,6 +118,16 @@ export default function Services() {
       controls.start("hidden");
     }
   }, [inView, controls]);
+
+  // Quando clicar no botão, dispara a troca da imagem animada:
+  const handleServiceClick = (index: number) => {
+    if (index === activeIndex) return; // se clicar no mesmo, não faz nada
+    setCurrentIndex(-1); // anima desaparecimento
+    setTimeout(() => {
+      setActiveIndex(index);
+      setCurrentIndex(index); // anima aparecimento
+    }, 300); // tempo do exit animation
+  };
 
   return (
     <div className="bg-[var(--tundraFrost)]" ref={ref}>
@@ -142,10 +159,13 @@ export default function Services() {
                   initial="hidden"
                   animate={controls}
                   variants={cardVariants}
-                  onClick={() => setActiveIndex(index)}
-                  className={`flex flex-col items-center justify-center gap-2 px-4 py-6 sha border-t-4 transition-all duration-300 cursor-pointer
-                    ${isActive ? " border-[var(--oceanBlue)]" : "border-gray-300 bg-transparent"}`}
+                  whileTap={{ scale: 0.9 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                  onClick={() => handleServiceClick(index)}
+                  className={`flex flex-col items-center justify-center gap-2 px-4 py-6 border-t-4 cursor-pointer
+    ${isActive ? "border-[var(--oceanBlue)]" : "border-gray-300 bg-transparent"}`}
                 >
+
                   <Icon size={48} className="text-[var(--oceanBlue)]" />
                   <span className="font-semibold text-center text-[var(--blackPanther)]">
                     {service.title}
@@ -162,19 +182,29 @@ export default function Services() {
           animate={controls}
           variants={imageVariants}
         >
-          <div className="relative w-full h-[500px] lg:h-[600px] rounded-tl-3xl shadow-2xl overflow-hidden">
-            <Image
-              src={services[activeIndex].image}
-              alt={`Foto de ${services[activeIndex].title}`}
-              fill
-              className="object-cover rounded-tl-3xl"
-              priority
-            />
-            <div className="absolute bottom-0 left-0 bg-[var(--oceanBlue)]/50 backdrop-blur-md text-white text-center px-10 py-16 shadow-xl">
-              <p className="text-2xl md:text-3xl font-bold">{services[activeIndex].resolved} </p>
-              <p className="text-xl md:text-2xl">casos resolvidos</p>
-            </div>
-          </div>
+          <AnimatePresence mode="wait">
+            {currentIndex === activeIndex && (
+              <motion.div
+                key={activeIndex}
+                initial={{ opacity: 0, x: 50, filter: "blur(4px)" }}   // entra vindo da direita (+x)
+                animate={{ opacity: 1, x: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: easeInOut } }}
+                exit={{ opacity: 0, x: -50, filter: "blur(4px)", transition: { duration: 0.3, ease: easeInOut } }} // sai para a esquerda (-x)
+                className="relative w-full h-[500px] lg:h-[600px] rounded-tl-3xl shadow-2xl overflow-hidden"
+              >
+                <Image
+                  src={services[activeIndex].image}
+                  alt={`Foto de ${services[activeIndex].title}`}
+                  fill
+                  className="object-cover rounded-tl-3xl"
+                  priority
+                />
+                <div className="absolute bottom-0 left-0 bg-[var(--oceanBlue)]/50 backdrop-blur-md text-white text-center px-10 py-16 shadow-xl">
+                  <p className="text-2xl md:text-3xl font-bold">{services[activeIndex].resolved}</p>
+                  <p className="text-xl md:text-2xl">casos resolvidos</p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
 
       </div>

@@ -32,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             "@context": "https://schema.org",
             "@type": "LegalService",
             name: "Dr. Carlos Alberto Pereira Andrade",
-            description: "Escritório de advocacia especializado em direito trabalhista em Teresina, com atendimento personalizado.",
+            description: "c",
             telephone: "(86) 99981-4301",
             email: "capa@hotmail.com",
             address: {

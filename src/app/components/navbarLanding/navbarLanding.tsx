@@ -25,7 +25,7 @@ export default function NavbarLanding() {
                 <Link href="/" className="text-xl font-bold text-[var(--oceanBlue)]">
                     <Image
                         className="dark:invert"
-                        src="/logo-inverse.png"
+                        src="/logo-inverse.svg"
                         alt="logo CAPA"
                         width={97}
                         height={23}

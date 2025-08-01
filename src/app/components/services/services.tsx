@@ -12,74 +12,87 @@ import {
   Gavel,
   Hourglass,
 } from "lucide-react";
-
-import { motion, useAnimation } from "framer-motion";
-import { useEffect } from "react";
+import Image from "next/image";
+import { motion, useAnimation, Easing } from "framer-motion";
+import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import WhatsappButton from "../whatsappButton/whatsappButton";
 
+// easing correto importado
+const ease: Easing = [0.43, 0.13, 0.23, 0.96];
+
 const services = [
   {
-    title: "Análise de Documentos Jurídicos",
-    description:
-      "Orientamos sobre quais documentos são necessários para cada caso, garantindo que você esteja bem preparado para a consulta ou processo.",
+    title: "Revisão de Contrato de Trabalho",
+    resolved: 184,
+    image: "/advogado.webp",
     icon: FileText,
   },
   {
-    title: "Consulta Jurídica Personalizada",
-    description:
-      "Na primeira consulta avaliamos sua situação e explicamos os próximos passos de forma clara e objetiva, sem compromisso.",
-    icon: UserCheck,
-  },
-  {
-    title: "Atendimento Presencial e Online",
-    description:
-      "Você escolhe: venha até nosso escritório ou receba atendimento de forma remota por vídeo ou telefone.",
-    icon: Video,
-  },
-  {
-    title: "Formas de Pagamento Flexíveis",
-    description:
-      "Aceitamos Pix, boleto, cartão de crédito e transferências. Em alguns casos, oferecemos parcelamento dos honorários.",
-    icon: CreditCard,
-  },
-  {
-    title: "Acompanhamento de Processos",
-    description:
-      "Enviamos atualizações por WhatsApp ou e-mail sempre que houver novidades. Você também pode entrar em contato a qualquer momento.",
-    icon: Bell,
-  },
-  {
-    title: "Aposentadoria e Planejamento Previdenciário",
-    description:
-      "Analisamos seu histórico de trabalho e documentos como CNIS e carteiras profissionais para orientar o melhor momento e forma de aposentadoria.",
-    icon: Briefcase,
-  },
-  {
-    title: "Atuação Multidisciplinar",
-    description:
-      "Além do direito previdenciário, atuamos nas áreas trabalhista, civil e família, oferecendo suporte jurídico completo.",
-    icon: Layers,
-  },
-  {
-    title: "Sigilo e Confiança",
-    description:
-      "Todos os casos são tratados com total sigilo, seguindo o Código de Ética da OAB. Sua privacidade é nossa prioridade.",
-    icon: ShieldCheck,
-  },
-  {
-    title: "Processos Trabalhistas",
-    description:
-      "Avaliamos seu vínculo empregatício e reunimos provas como holerites, carteira de trabalho e FGTS para construir a melhor estratégia.",
+    title: "Rescisão e Verbas Trabalhistas",
+    resolved: 221,
+    image: "/advogado.webp",
     icon: Gavel,
   },
   {
-    title: "Estimativa de Prazos Processuais",
-    description:
-      "Após entender seu caso, informamos uma estimativa realista baseada em nossa experiência com ações semelhantes.",
+    title: "Ações de Indenização por Danos Morais",
+    resolved: 143,
+    image: "/advogado.webp",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Reconhecimento de Vínculo Empregatício",
+    resolved: 97,
+    image: "/advogado.webp",
+    icon: UserCheck,
+  },
+  {
+    title: "Cálculo de Horas Extras e Adicionais",
+    resolved: 168,
+    image: "/advogado.webp",
     icon: Hourglass,
   },
+  {
+    title: "Acompanhamento de Processos Trabalhistas",
+    resolved: 204,
+    image: "/advogado.webp",
+    icon: Bell,
+  },
 ];
+
+const titleVariants = {
+  hidden: { opacity: 0, x: -50, filter: "blur(4px)" },
+  visible: {
+    opacity: 1,
+    x: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.9, ease },
+  },
+};
+
+const imageVariants = {
+  hidden: { opacity: 0, x: 50, filter: "blur(4px)" },
+  visible: {
+    opacity: 1,
+    x: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.9, ease, delay: 0.3 },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, x: -30, filter: "blur(4px)" },
+  visible: (i: number) => ({
+    opacity: 1,
+    x: 0,
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.9,
+      ease,
+      delay: 0.6 + i * 0.15,
+    },
+  }),
+};
 
 export default function Services() {
   const controls = useAnimation();
@@ -88,6 +101,8 @@ export default function Services() {
     rootMargin: "0px 0px -10% 0px",
     triggerOnce: false,
   });
+
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     if (inView) {
@@ -99,70 +114,73 @@ export default function Services() {
 
   return (
     <div className="bg-[var(--tundraFrost)]" ref={ref}>
-      <motion.h2
-        initial="hidden"
-        animate={controls}
-        variants={{
-          hidden: { opacity: 0, x: -50 },
-          visible: { opacity: 1, x: 0 },
-        }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="text-3xl md:text-5xl font-extrabold pt-16 px-6 md:px-20 font-playfair text-[var(--blackPanther)]"
-      >
-        Nossos Serviços
-      </motion.h2>
+      <div className="py-20 px-4 md:px-8 lg:px-20 max-w-7xl mx-auto flex flex-col lg:flex-row gap-10">
 
-      <div className="py-20 px-4 md:px-8 lg:px-20">
-        <div className="flex flex-wrap justify-center gap-6 max-w-7xl mx-auto">
-          {services.map((item, index) => {
-            const Icon = item.icon;
-            const isLeft = index % 3 === 0;
-            const isMiddle = index % 3 === 1;
-            const isRight = index % 3 === 2;
+        <motion.div
+          className="w-full lg:w-1/2 flex flex-col gap-8"
+          initial="hidden"
+          animate={controls}
+          variants={titleVariants}
+        >
+          <div>
+            <h3 className="text-3xl md:text-4xl font-bold text-[var(--blackPanther)]">
+              Diferentes casos, necessitam de diferentes soluções
+            </h3>
+            <p className="text-base text-[var(--blackPanther)] mt-4">
+              Seguimos com você até a resolução judicial do seu caso com dedicação e transparência.
+            </p>
+          </div>
 
-            return (
+          <div className="grid grid-cols-2 md:grid-cols-3">
+            {services.map((service, index) => {
+              const Icon = service.icon;
+              const isActive = index === activeIndex;
+              return (
+                <motion.button
+                  key={index}
+                  custom={index}
+                  initial="hidden"
+                  animate={controls}
+                  variants={cardVariants}
+                  onClick={() => setActiveIndex(index)}
+                  className={`flex flex-col items-center justify-center gap-2 px-4 py-6 sha border-t-4 transition-all duration-300 cursor-pointer
+                    ${isActive ? " border-[var(--oceanBlue)]" : "border-gray-300 bg-transparent"}`}
+                >
+                  <Icon size={48} className="text-[var(--oceanBlue)]" />
+                  <span className="font-semibold text-center text-[var(--blackPanther)]">
+                    {service.title}
+                  </span>
+                </motion.button>
+              );
+            })}
+          </div>
+        </motion.div>
 
-              <motion.div
-                key={index}
-                initial="hidden"
-                animate={controls}
-                variants={{
-                  hidden: {
-                    opacity: 0,
-                    x: isLeft ? -50 : isRight ? 50 : 0,
-                    y: isMiddle ? 50 : 0,
-                    filter: "blur(8px)",
-                  },
-                  visible: {
-                    opacity: 1,
-                    x: 0,
-                    y: 0,
-                    filter: "blur(0px)",
-                  },
-                }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
-                className="bg-white border-1 border-[var(--oceanBlue)] rounded-2xl shadow-lg p-6 flex flex-col gap-4 transition hover:shadow-2xl max-w-[350px] w-full sm:w-[48%] lg:w-[30%]"
-              >
+        <motion.div
+          className="w-full lg:w-1/2 relative"
+          initial="hidden"
+          animate={controls}
+          variants={imageVariants}
+        >
+          <div className="relative w-full h-[500px] lg:h-[600px] rounded-tl-3xl shadow-2xl overflow-hidden">
+            <Image
+              src={services[activeIndex].image}
+              alt={`Foto de ${services[activeIndex].title}`}
+              fill
+              className="object-cover rounded-tl-3xl"
+              priority
+            />
+            <div className="absolute bottom-0 left-0 bg-[var(--oceanBlue)]/50 backdrop-blur-md text-white text-center px-10 py-16 shadow-xl">
+              <p className="text-2xl md:text-3xl font-bold">{services[activeIndex].resolved} </p>
+              <p className="text-xl md:text-2xl">casos resolvidos</p>
+            </div>
+          </div>
+        </motion.div>
 
-                <div className="flex flex-col items-center gap-3">
-                  <div className="bg-[var(--oceanBlue)/10] p-2 rounded-full">
-                    <Icon size={128} className="text-[var(--oceanBlue)]" />
-                  </div>
-                  <h3 className="text-xl font-extrabold text-[var(--blackPanther)] text-center">
-                    {item.title}
-                  </h3>
-                </div>
-                <p className="text-[var(--blackPanther)] text-base font-light text-center">
-                  {item.description}
-                </p>
-              </motion.div>
-            );
-          })}
-        </div>
+      </div>
 
-        <div className="mt-16 flex justify-center">
-          <WhatsappButton />
-        </div>
+      <div className="pt-4 pb-8 md:pt-8 md:pb-16 flex justify-center">
+        <WhatsappButton />
       </div>
     </div>
   );

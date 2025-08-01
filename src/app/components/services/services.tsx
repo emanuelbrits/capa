@@ -25,37 +25,37 @@ const services = [
   {
     title: "Revisão de Contrato de Trabalho",
     resolved: 184,
-    image: "/legal-contract-meeting.jpg",
+    image: "/legal-contract-meeting.webp",
     icon: FileText,
   },
   {
     title: "Rescisão e Verbas Trabalhistas",
     resolved: 221,
-    image: "/employee-termination.avif",
+    image: "/employee-termination.webp",
     icon: Gavel,
   },
   {
     title: "Ações de Indenização por Danos Morais",
     resolved: 143,
-    image: "/harassment.jpg",
+    image: "/harassment.webp",
     icon: ShieldCheck,
   },
   {
     title: "Reconhecimento de Vínculo Empregatício",
     resolved: 97,
-    image: "/legal-employment-documents.jpg",
+    image: "/legal-employment-documents.webp",
     icon: UserCheck,
   },
   {
     title: "Cálculo de Horas Extras e Adicionais",
     resolved: 168,
-    image: "/overtime-calculation.jpg",
+    image: "/overtime-calculation.webp",
     icon: Hourglass,
   },
   {
     title: "Acompanhamento de Processos Trabalhistas",
     resolved: 204,
-    image: "/legal-process-monitoring.jpg",
+    image: "/legal-process-monitoring.webp",
     icon: Bell,
   },
 ];
@@ -163,7 +163,7 @@ export default function Services() {
                   transition={{ type: "spring", stiffness: 400, damping: 15 }}
                   onClick={() => handleServiceClick(index)}
                   className={`flex flex-col items-center justify-center gap-2 px-4 py-6 border-t-4 cursor-pointer
-    ${isActive ? "border-[var(--oceanBlue)]" : "border-gray-300 bg-transparent"}`}
+                  ${isActive ? "border-[var(--oceanBlue)]" : "border-gray-300 bg-transparent"}`}
                 >
 
                   <Icon size={48} className="text-[var(--oceanBlue)]" />
@@ -196,7 +196,9 @@ export default function Services() {
                   alt={`Foto de ${services[activeIndex].title}`}
                   fill
                   className="object-cover rounded-tl-3xl"
-                  priority
+                  priority={false} 
+                  quality={75}
+                  loading="lazy"
                 />
                 <div className="absolute bottom-0 left-0 bg-[var(--oceanBlue)]/50 backdrop-blur-md text-white text-center px-10 py-16 shadow-xl">
                   <p className="text-2xl md:text-3xl font-bold">{services[activeIndex].resolved}</p>
